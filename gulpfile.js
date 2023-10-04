@@ -70,9 +70,9 @@ gulp.task('img', function () {
 gulp.task('copy', async function () {
 
   gulp.src([
-    'app/css/app.css'
+    'app/scss/app.scss'
   ])
-    .pipe(gulp.dest('dist/css'))
+    .pipe(gulp.dest('dist/scss'))
 
   gulp.src('app/fonts/**/*')
     .pipe(gulp.dest('dist/fonts'))

@@ -1,60 +1,34 @@
-const actions = ['+', '-', '*', '/', '.', '%'];
+const mathParams = ['+', '-', '*', '/', '.', '%'];
 
-const dashboard = document.getElementById("dashboard");
+const instrumentPanel = document.getElementById("instrumentPanel");
 
-function printAction(val) {
-  if (val === '+/-') {
-    let firstDigit = dashboard.value[0]
-    if (firstDigit === '-') {
-      dashboard.value = dashboard.value.slice(1, dashboard.value.length)
-    } else {
-      dashboard.value = '-' + dashboard.value
-    }
-  } else if (actions.includes(dashboard.value[dashboard.value.length - 1])
-    || dashboard.value.length === 0) {
-  } else {
-    dashboard.value += val
-  }
-}
+const printNumber = (mathParam) => instrumentPanel.value += mathParam
 
-function printDigit(val) {
-  dashboard.value += val
-}
+const clearInstrumentPanel = () => instrumentPanel.value = ''
 
-function solve() {
-  let expression = dashboard.value
-  dashboard.value = math.evaluate(expression)
-}
+const saveToLocalStorage = () => localStorage.setItem('result', instrumentPanel.value)
 
-function clr() {
-  dashboard.value = ''
-}
+const withdrawFromLocalStorage = () => printNumber(localStorage.getItem('result'))
 
-function setTheme(themeName) {
+const exampleSolution = () => instrumentPanel.value = math.evaluate(instrumentPanel.value).toFixed(10)
+
+const setTheme = (themeName) => {
   localStorage.setItem('theme', themeName);
   document.querySelector('body').className = themeName;
 }
 
-function toggleTheme() {
-  let theme = localStorage.getItem('theme');
+const toggleTheme = () => {
+  const theme = localStorage.getItem('theme') === 'theme-second' ? 'theme-one' : 'theme-second';
+  setTheme(theme);
+};
 
-  if (theme === 'theme-second') {
-    theme = 'theme-one'
-  } else if (theme === 'theme-one') {
-    theme = 'theme-second'
+const changeParams = (mathParam) => {
+  if (mathParam === '+/-') {
+    const firstDigit = instrumentPanel.value[0];
+    instrumentPanel.value = (firstDigit === '-') ? instrumentPanel.value.slice(1) : '-' + instrumentPanel.value;
+  } else if (!mathParams.includes(instrumentPanel.value.slice(-1)) && instrumentPanel.value.length > 0) {
+    instrumentPanel.value += mathParam;
   }
-  setTimeout(() => {
-    setTheme(theme);
-  }, 500)
 }
-
-function save() {
-  localStorage.setItem('result', dashboard.value);
-}
-
-function paste() {
-  printDigit(localStorage.getItem('result'))
-}
-
 
 setTheme('theme-one');
