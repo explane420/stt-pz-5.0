@@ -10,7 +10,7 @@ const saveToLocalStorage = () => localStorage.setItem('result', instrumentPanel.
 
 const withdrawFromLocalStorage = () => printDigit(localStorage.getItem('result'))
 
-const exampleSolution = () => instrumentPanel.value = math.evaluate(instrumentPanel.value).toFixed(10)
+const exampleSolution = () => instrumentPanel.value = math.evaluate(instrumentPanel.value)
 
 const setTheme = (themeName) => {
   localStorage.setItem('theme', themeName);
